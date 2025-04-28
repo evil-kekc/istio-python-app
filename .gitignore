@@ -1,0 +1,4 @@
+.idea
+.venv
+*__pycache__/
+istio-1.25.0/

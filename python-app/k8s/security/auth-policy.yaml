@@ -1,0 +1,23 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: require-static-bearer-token
+spec:
+  selector:
+    matchLabels:
+      app: istio-python-app
+  action: ALLOW
+  rules:
+    - to:
+        - operation:
+            paths:
+              - "/api*"
+            methods: [ "GET" ]
+      when:
+        - key: request.headers[Authorization]
+          values: [ "Bearer my-static-token-123" ]
+    - to:
+        - operation:
+            paths:
+              - "/"
+            methods: [ "GET" ]

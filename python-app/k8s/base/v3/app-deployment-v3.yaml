@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: istio-python-app-v3
+  labels:
+    app: istio-python-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: istio-python-app
+  template:
+    metadata:
+      name: istio-python-app
+      labels:
+        app: istio-python-app
+        version: v3
+    spec:
+      containers:
+        - name: istio-python-app-v3
+          env:
+            - name: VERSION
+              value: v3
+          image: evilkekc/istio-python-app:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always

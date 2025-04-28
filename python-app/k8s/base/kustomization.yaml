@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - v1/app-deployment-v1.yaml
+  - app-service.yaml
+  - v2/app-deployment-v2.yaml
+  - v3/app-deployment-v3.yaml
+  - ingressgateway-istio.yaml

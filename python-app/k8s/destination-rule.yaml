@@ -1,0 +1,36 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: istio-python-app
+spec:
+  host: istio-python-app.default.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    connectionPool:
+      tcp:
+        maxConnections: 10
+        tcpKeepalive:
+          probes: 2
+      http:
+        http1MaxPendingRequests: 10
+        http2MaxRequests: 10
+        maxRequestsPerConnection: 10
+        idleTimeout: 20s
+        maxRetries: 3
+  subsets:
+    - name: v1
+      labels:
+        version: v1
+      trafficPolicy:
+        loadBalancer:
+          simple: ROUND_ROBIN
+    - name: v2
+      labels:
+        version: v2
+      trafficPolicy:
+        loadBalancer:
+          simple: ROUND_ROBIN
+    - name: v3
+      labels:
+        version: v3
